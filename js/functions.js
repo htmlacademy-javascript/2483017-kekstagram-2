@@ -30,3 +30,28 @@ function extractNumbers(str) {
 }
 
 extractNumbers(2023);
+
+// Функция, которая принимает время начала и конца рабочего дня, а также время старта и продолжительность встречи в минутах и возвращает true, если встреча не выходит за рамки рабочего дня, и false, если выходит.
+const isMeetingInWorkTime = (
+  workDayStart,
+  workDayEnd,
+  meetingStart,
+  meetingDuration
+) => {
+
+  const timeToMinutes = (time) => {
+    const [hours, minutes] = time.split(':');
+    return Number(hours) * 60 + Number(minutes);
+  };
+
+  const workStartMinutes = timeToMinutes(workDayStart);
+  const workEndMinutes = timeToMinutes(workDayEnd);
+  const meetingStartMinutes = timeToMinutes(meetingStart);
+  const meetingEndMinutes = meetingStartMinutes + meetingDuration;
+
+  return (
+    meetingStartMinutes >= workStartMinutes && meetingEndMinutes <= workEndMinutes
+  );
+};
+
+isMeetingInWorkTime('08:00', '17:30', '14:00', 90);

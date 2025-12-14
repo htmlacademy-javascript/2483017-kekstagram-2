@@ -9,7 +9,7 @@ const MAX_COMMENTS = 30;
 
 const idGenerator = createIdGenerator();
 
-const createComment = () => {
+const createComments = () => {
   const comments = [];
 
   for (let i = 0; i <= getRandomInteger(MIN_COMMENTS, MAX_COMMENTS); i++) {
@@ -33,7 +33,7 @@ const createPhotos = () => {
       url: `photos/${i}.jpg`,
       description: 'Необычный кадр дня',
       likes : getRandomInteger(MIN_LIKES, MAX_LIKES),
-      comments : createComment()
+      comments : createComments()
     };
     photos.push(photo);
   }
