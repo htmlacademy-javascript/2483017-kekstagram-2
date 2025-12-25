@@ -1,3 +1,5 @@
-import {createPhotos} from './createPhotos.js';
+import { createPhotos } from './createPhotos.js';
+import { renderPictures } from './pictures.js';
 
-createPhotos();
+const photos = createPhotos();
+renderPictures(photos);

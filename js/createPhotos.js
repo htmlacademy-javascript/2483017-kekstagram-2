@@ -1,5 +1,5 @@
-import {getRandomInteger, getRandomItem, createIdGenerator} from './util.js';
-import {NAMES, MESSAGES} from './data.js';
+import { getRandomInteger, getRandomItem, createIdGenerator } from './util.js';
+import { NAMES, MESSAGES } from './data.js';
 
 const NUM_OF_PHOTOS = 25;
 const MIN_LIKES = 15;
