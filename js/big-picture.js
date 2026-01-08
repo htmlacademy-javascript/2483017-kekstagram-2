@@ -1,13 +1,11 @@
+import { initComments, ClearComments } from './comments.js';
+
 const body = document.body;
+
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImage = bigPicture.querySelector('.big-picture__img img');
 const likesCount = bigPicture.querySelector('.likes-count');
 const description = bigPicture.querySelector('.social__caption');
-const commentCount = bigPicture.querySelector('.social__comment-count');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
-const commentTotalCount = bigPicture.querySelector('.social__comment-total-count');
-const socialComments = bigPicture.querySelector('.social__comments');
-const socialComment = bigPicture.querySelector('.social__comment');
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
@@ -16,20 +14,6 @@ const onEscapeKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     closeBigPicture();
   }
-};
-
-const renderComments = (comments) => {
-  const fragment = document.createDocumentFragment();
-  comments.forEach((comment) => {
-    const commentTemplate = socialComment.cloneNode(true);
-    const commentAuthor = commentTemplate.querySelector('.social__picture');
-    commentAuthor.src = comment.avatar;
-    commentAuthor.alt = comment.name;
-    commentTemplate.querySelector('.social__text').textContent = comment.message;
-
-    fragment.appendChild(commentTemplate);
-  });
-  socialComments.appendChild(fragment);
 };
 
 const openBigPicture = (photo) => {
@@ -41,13 +25,9 @@ const openBigPicture = (photo) => {
 
   likesCount.textContent = photo.likes;
   description.textContent = photo.description;
-  commentTotalCount.textContent = photo.comments.length;
 
-  socialComments.innerHTML = '';
-  renderComments(photo.comments);
-
-  commentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  ClearComments();
+  initComments(photo.comments);
 
   document.addEventListener('keydown', onEscapeKeydown);
 };
@@ -56,13 +36,12 @@ function closeBigPicture () {
   body.classList.remove('modal-open');
   bigPicture.classList.add ('hidden');
 
-  socialComments.innerHTML = '';
+  ClearComments();
   bigPictureImage.src = '';
   bigPictureImage.alt = '';
 
   likesCount.textContent = '';
   description.textContent = '';
-  commentTotalCount.textContent = '';
 
   document.removeEventListener('keydown', onEscapeKeydown);
 }
